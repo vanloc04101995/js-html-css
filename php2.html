@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+    .items {
+      display: block;
+      column-gap: 10px;
+      }
+    /* .item{
+      display: none;
+
+    } */
+    .item {
+      break-inside: avoid;
+    }
+    .content {
+      background: #CCC;
+      padding: 15px;
+      margin-top: 10px;
+    }
+    .item:first-child .content {
+      margin-top: 0px;
+    }
+    .itemLi{
+      display: none;
+    }
+    </style>
+
+    <script>
+
+      $(document).ready(function(){
+       $("#btn1").click(function(){
+
+         var y = document.getElementById('myParent').value;
+         var x = document.getElementById('myRow').value;
+         document.getElementById('items').style.columnCount= x;
+         var listItem = 0;
+         var remem = 0;
+         var pa=1;
+         if((y % x) ==1){
+           for(var i = 0; i < y;i++){
+             $(".items").append(' <div class="item" id="parent1"> <div class="content"><p class="titleP"></p><li class="itemLi">item 1</li><li class="itemLi">item 2</li><li class="itemLi">item 3</li><li class="itemLi">item 4</li><li class="itemLi">item 5</li><li class="itemLi">item 6</li><li class="itemLi">item 7</li><li class="itemLi">item 8</li></div> </div>');
+             $(".titleP")[i].append('Parent' + pa);
+             pa+=1;
+             document.getElementsByClassName('item')[i].style.display="flex";
+             var rand = (Math.floor(Math.random() * 7) + 2)+remem;
+             for(var k = listItem; k < rand;k++){
+                document.getElementsByClassName('itemLi')[k].style.display="block";
+                console.log(k);
+              }
+              listItem = listItem + 8;
+              remem += 8;
+           }
+         }else{
+           for(var i = 0; i < y;i++){
+             $(".items").append(' <div class="item" id="parent1"> <div class="content"><p class="titleP"></p><li class="itemLi">item 1</li><li class="itemLi">item 2</li><li class="itemLi">item 3</li><li class="itemLi">item 4</li><li class="itemLi">item 5</li><li class="itemLi">item 6</li><li class="itemLi">item 7</li><li class="itemLi">item 8</li></div> </div>');
+             $(".titleP")[i].append('Parent' + pa);
+             pa+=1;
+             document.getElementsByClassName('item')[i].style.display="block";
+             var rand = (Math.floor(Math.random() * 7) + 2)+remem;
+             for(var k = listItem; k < rand;k++){
+                document.getElementsByClassName('itemLi')[k].style.display="block";
+                console.log(k);
+              }
+              listItem = listItem + 8;
+              remem += 8;
+           }
+     }
+       });
+     });
+
+    </script>
+  </head>
+  <body>
+  <label>so cha</label>
+  <input type="text" name="" value="" id="myParent">
+  <!-- <button type="button" onclick="changeParent()">Ok</button> -->
+  <label>so cot</label>
+  <input type="text" name="" value="" id="myRow">
+  <button id="btn1"type="button">Ok</button>
+
+
+
+<div class="items" id="items">
+
+</div>
+
+
+
+  </body>
+</html>
