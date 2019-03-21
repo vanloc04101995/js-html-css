@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+    .split-list dl{
+          float: left;
+          padding: 5px;
+    }
+
+    </style>
+    <script>
+    $(document).ready(function(){
+    $("#btn1").click(function() {
+          var num_cols = document.getElementById('myRow').value;
+          var parentNumber = document.getElementById('myParent').value;
+          for (var i = 0; i < parentNumber; i++) {
+              $('.split-list').append($('<dt class="parentClass">Parent </dt>'));
+              $('.parentClass')[i].append(i)  ;
+          }
+          for (var i = 0; i < (Math.floor(Math.random() * 7) + 2); i++) {
+              $('.parentClass').append($('<dd>item</dd>')) ;
+          }
+          // this = '.split-list'
+          container = $('.split-list');
+          listItem = 'dt';
+          listClass = 'sub-list';
+          // console.log(container);
+          container.each(function() {
+              var items_per_col = new Array();
+              items = $(this).find(listItem);
+              // console.log(items);
+              min_items_per_col = Math.floor(items.length / num_cols);
+              console.log(min_items_per_col);
+              difference = items.length  - (min_items_per_col * num_cols);
+              for (var i = 0; i < num_cols; i++) {
+                  if (i < difference) {
+                      items_per_col[i] = min_items_per_col + 1;
+                  } else {
+                      items_per_col[i] = min_items_per_col;
+                  }
+              }
+              for (var i = 0; i < num_cols; i++) {
+                  $(this).append($('<dl ></dl>').addClass(listClass));
+                  for (var j = 0; j < items_per_col[i]; j++) {
+                      var pointer = 0;
+                      for (var k = 0; k < i; k++) {
+                          pointer += items_per_col[k];
+                      }
+                      $(this).find('.' + listClass).last().append(items[j +pointer] );
+                  }
+               }
+          });
+    });
+  })
+    </script>
+  </head>
+  <body>
+    <input type="text" name="" value="" id="myParent">
+    <input type="text" name="" value="" id="myRow">
+    <button type="button" id="btn1">Ok</button>
+    <dl class="split-list">
+    </dl>
+  </body>
+</html>
