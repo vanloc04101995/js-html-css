@@ -12,22 +12,23 @@
 
     </style>
     <script>
-       function dataChange() {
+  function dataChange() {
           var num_cols = document.getElementById('myRow').value;
           var parentNumber = document.getElementById('myParent').value;
           listClass = 'sub-list';
           var items_per_col = new Array();
           min_items_per_col = Math.floor(parentNumber / num_cols);
-          difference = parentNumber  - (min_items_per_col * num_cols);
+          difference = parentNumber  % num_cols;
           // calculate the number of columns
-          for (var i = 0; i < num_cols; i++) {
-              if (i < difference) {
-                  items_per_col[i] = min_items_per_col + 1;
+          for (var indexCol = 0; indexCol < num_cols; indexCol++) {
+              if (indexCol < difference) {
+                  items_per_col[indexCol] = min_items_per_col + 1;
               } else {
-                  items_per_col[i] = min_items_per_col;
+                  items_per_col[indexCol] = min_items_per_col;
               }
           }
           // Add parent and random item
+          var itemNumber = 1;
           for (var i = 0; i < num_cols; i++) {
               $('.split-list').append($('<dl ></dl>').addClass(listClass));
               for (var j = 0; j < items_per_col[i]; j++) {
@@ -35,23 +36,15 @@
                   for (var k = 0; k < i; k++) {
                       pointer += items_per_col[k];
                   }
-                  $('.split-list').find('.' + listClass).last().append($('<dt class="parentClass">Parent </dt>'));
-                  $('.parentClass')[pointer+j-1].append(pointer+j)  ;
-                  for (var rand = 0; rand < (Math.floor(Math.random() * 7) + 2); rand++) {
-                      $('.parentClass').last().append($('<dd class="item"></dd>')) ;
+                  $('.split-list').find('.' + listClass).last().append($('<dt class="parentClass">Parent </dt>').append(pointer+j));
 
+                  for (var rand = 0; rand < (Math.floor(Math.random() * 7)+2 ); rand++) {
+                      $('.parentClass').last().append($('<dd class="item">item</dd>').append(itemNumber)) ;
+                      itemNumber++;
                   }
 
               }
            }
-           // Index the items
-           var itemIndex = document.getElementsByClassName('item');
-           var s = 1;
-           for(var index = 0;index< itemIndex.length;index++){
-               document.getElementsByClassName('item')[index].innerHTML =  "item"+s;
-               s+=1;
-         }
-
 }
     </script>
   </head>
